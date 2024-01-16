@@ -340,4 +340,5 @@ def main():
     window = Bargraph_Window(root, week_list)
     root.mainloop()
 
-main()
+if __name__ == '__main__':
+    main()
