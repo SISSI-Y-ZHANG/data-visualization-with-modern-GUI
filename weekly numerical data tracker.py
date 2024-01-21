@@ -265,7 +265,7 @@ class Bargraph_Window:
                 self.ax.bar(i, value, color='cadetblue')
                 self.ax.text(i, value+0.1, str(value), ha='center', va='bottom')
 
-        self.ax.set_xlabel("Weeks")
+        self.ax.set_xlabel("Months")
         self.ax.set_xticks(range(len(labels)), labels)
         self.ax.set_ylabel("Hours")
         self.ax.set_yticks(range(16))
