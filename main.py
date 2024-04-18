@@ -1,11 +1,11 @@
 # Remaining Update(s):
-# - change dropdown menu from weeka to month 
+# - change dropdown menu from weeks to month 
 #   e.g. check if mon.month == thu.month
 # - use line graph to draw the trend of EVERY SINGLE DAY
 # - fix bar size for total average
 
 # Reflection: 
-# I could write less code by splitting functions into simplier ones
+# I could write less code by splitting functions into simpler ones
 # since I have written very similar lines in more than one place.
 
 import datetime as dt
