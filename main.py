@@ -1,6 +1,3 @@
-# Weekly Numerical Data Tracker
-# Author: Sissi Zhang
-
 # Remaining Update(s):
 # - change dropdown menu from weeka to month 
 #   e.g. check if mon.month == thu.month
