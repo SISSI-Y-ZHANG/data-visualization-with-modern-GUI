@@ -335,7 +335,7 @@ def read_data(file_name, week_list):
 
 def main():
     week_list = Week_List()
-    read_data("sleep data 2024.txt", week_list)
+    read_data("sleep data 2023.txt", week_list)
     week_list.span_update()
 
     ctk.set_appearance_mode('dark')
