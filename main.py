@@ -6,7 +6,6 @@
 
 # Reflection: 
 # I could write less code by splitting functions into simpler ones
-# since I have written very similar lines in more than one place.
 
 import datetime as dt
 from calendar import monthrange
@@ -14,11 +13,11 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
 import customtkinter as ctk
 
-ctk.set_appearance_mode('dark')
-ctk.set_default_color_theme('dark-blue')
-
 month_name = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 weekday_name = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+
+################################################# DATA #################################################
+
 
 # used to store data for each week
 class Week:
@@ -55,6 +54,7 @@ class Week:
     def text_form(self):
         return f'{self.year}/{self.month}/{self.day}'
 
+################################################# DATASET #################################################
 
 # used to store Weeks
 class Week_List:
@@ -112,6 +112,7 @@ class Week_List:
             txt.append(i.text_form())
         return txt
 
+################################################# GUI CLASS #################################################
 
 class Bargraph_Window:
     def __init__(self, master, week_list):
@@ -291,48 +292,54 @@ class Bargraph_Window:
         self.master.quit()
         #print('quit')
 
+################################################# READ DATA #################################################
 
 def read_data(file_name, week_list):
     with open(file_name) as in_data:
         line = in_data.readline()
-        c = 1
+        i = 1
 
         while line:
-            line = line.strip().split('/')
-            year, month, date = [eval(i) for i in line]
-            weekday = dt.datetime(year, month, date).weekday()
-            if weekday == 0:
-                monday = [year, month, date]
-            else:
-                print(f'line {c} is not a monday')
-                break
-
-            line = in_data.readline().strip().split()
-            c += 1
-            if len(line) == 7:
-                days = [eval(i) for i in line]
-            else:
-                print(f'the number of digits is not 7 in line {c}')
-                break
-
-            # make a Week
-            week = Week(monday)
-            week.create_week(days)
-            week_list.insert(week)
-
-            # read new lines
-            line = in_data.readline()
-            c += 1
-            while line == '\n':
+            if line == '\n':
                 line = in_data.readline()
-                c += 1
+                i += 1
+                continue
+            else:
+                line = line.strip().split('/')
+                year, month, date = [eval(i) for i in line]
+                weekday = dt.datetime(year, month, date).weekday()
+                if weekday == 0:
+                    monday = [year, month, date]
+                else:
+                    print(f'line {i} is not a monday')
+                    break
 
+                line = in_data.readline().strip().split()
+                i += 1
+                if len(line) == 7:
+                    days = [eval(i) for i in line]
+                else:
+                    print(f'the number of digits is not 7 in line {i}')
+                    break
+
+                # make a Week
+                week = Week(monday)
+                week.create_week(days)
+                week_list.insert(week)
+
+                # read new lines
+                line = in_data.readline()
+                i += 1
+
+################################################# MAIN #################################################
 
 def main():
     week_list = Week_List()
-    read_data("sleep data 2023.txt", week_list)
+    read_data("sleep data 2024.txt", week_list)
     week_list.span_update()
 
+    ctk.set_appearance_mode('dark')
+    ctk.set_default_color_theme('dark-blue')
     root = ctk.CTk()
     window = Bargraph_Window(root, week_list)
     root.mainloop()
